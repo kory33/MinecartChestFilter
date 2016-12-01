@@ -1,0 +1,3 @@
+name: MinecartChestFilter
+main: com.github.kory33.minecartchestfilter.core.MinecartChestFilter
+version: 0.0.1
