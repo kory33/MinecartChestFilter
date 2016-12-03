@@ -14,6 +14,8 @@ public class FilteredStorageInteractEventInterceptor implements Listener{
     public FilteredStorageInteractEventInterceptor(MinecartChestFilter plugin){
         this.pManager = plugin.getServer().getPluginManager();
         this.pManager.registerEvents(this, plugin);
+        
+        plugin.getLogger().info("Registered listener for PlayerInteractFilteredStorageMinecartEvent");
     }
     
     @EventHandler

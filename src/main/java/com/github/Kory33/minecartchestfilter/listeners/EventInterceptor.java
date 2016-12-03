@@ -16,6 +16,8 @@ public class EventInterceptor implements Listener {
     public EventInterceptor(MinecartChestFilter plugin){
         this.pManager = plugin.getServer().getPluginManager();
         this.pManager.registerEvents(this, plugin);
+        
+        plugin.getLogger().info("Registered core interceptors");
     }
     
     
@@ -23,10 +25,9 @@ public class EventInterceptor implements Listener {
     public void onPlayerInteract(PlayerInteractEntityEvent event){
         Entity clickedEntity = event.getRightClicked();
         
-        // if the clicked entity is a storage minecart
+        // if the clicked entity is a filtered storage minecart
         if (clickedEntity instanceof StorageMinecart
                 && clickedEntity.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
-            
             event.setCancelled(true);
             
             PlayerInteractFilteredStorageMinecartEvent newEvent = 
