@@ -19,7 +19,7 @@ public class FilteredStorageInteractEventInterceptor implements Listener{
     }
     
     @EventHandler
-    public void onPlayerInteractWithStorageMinecart(PlayerInteractFilteredStorageMinecartEvent event){
+    public void onPlayerInteractFilteredStorageMinecart(PlayerInteractFilteredStorageMinecartEvent event){
         FilteredInventoryUtil.openFilteredInventory(event.getPlayer(), event.getRightClickedMinecart());
     }
 }
