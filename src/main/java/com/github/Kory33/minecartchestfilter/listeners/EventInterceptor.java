@@ -8,12 +8,14 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.plugin.PluginManager;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
-import com.github.Kory33.minecartchestfilter.util.inventory.FilteredInventoryUtil;
+import com.github.Kory33.minecartchestfilter.event.PlayerInteractFilteredStorageMinecartEvent;
 
 public class EventInterceptor implements Listener {
+    private PluginManager pManager;
+
     public EventInterceptor(MinecartChestFilter plugin){
-        PluginManager pManager = plugin.getServer().getPluginManager();
-        pManager.registerEvents(this, plugin);
+        this.pManager = plugin.getServer().getPluginManager();
+        this.pManager.registerEvents(this, plugin);
     }
     
     
@@ -26,18 +28,14 @@ public class EventInterceptor implements Listener {
                 && clickedEntity.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
             
             event.setCancelled(true);
-            onPlayerInteractWithStorageMinecart(event);
+            
+            PlayerInteractFilteredStorageMinecartEvent newEvent = 
+                    new PlayerInteractFilteredStorageMinecartEvent(event.getPlayer(), (StorageMinecart) clickedEntity);
+
+            this.pManager.callEvent(newEvent);
         }
         
         return;
     }
-    
-    
-    private void onPlayerInteractWithStorageMinecart(PlayerInteractEntityEvent event) {
-        StorageMinecart clickedMinecart = (StorageMinecart) event.getRightClicked();
-                
-        FilteredInventoryUtil.openFilteredInventory(event.getPlayer(), clickedMinecart);
-        
-        return;
-    }
+
 }
