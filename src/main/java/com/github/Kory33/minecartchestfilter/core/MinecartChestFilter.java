@@ -10,7 +10,7 @@ import com.github.Kory33.minecartchestfilter.listeners.EventInterceptor;
 import com.github.Kory33.minecartchestfilter.listeners.FilteredStorageInteractEventInterceptor;
 
 public class MinecartChestFilter extends JavaPlugin {
-    public static final String FILTERED_MINECART_METAKEY = "cart_inventory_filtering_type";
+    public static final String FILTERED_MINECART_METAKEY = "CartInventoryFilteringType";
     
     private ArrayList<Listener> eventInterceptors;
     
