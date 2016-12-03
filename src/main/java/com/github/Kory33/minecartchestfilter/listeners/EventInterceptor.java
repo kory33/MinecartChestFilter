@@ -22,7 +22,10 @@ public class EventInterceptor implements Listener {
         Entity clickedEntity = event.getRightClicked();
         
         // if the clicked entity is a storage minecart
-        if (clickedEntity instanceof StorageMinecart){
+        if (clickedEntity instanceof StorageMinecart
+                && clickedEntity.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
+            
+            event.setCancelled(true);
             onPlayerInteractWithStorageMinecart(event);
         }
         
@@ -32,13 +35,7 @@ public class EventInterceptor implements Listener {
     
     private void onPlayerInteractWithStorageMinecart(PlayerInteractEntityEvent event) {
         StorageMinecart clickedMinecart = (StorageMinecart) event.getRightClicked();
-        
-        // check if the minecart has the metadata
-        if (!clickedMinecart.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
-            return;
-        }
-        event.setCancelled(true); 
-        
+                
         FilteredInventoryUtil.openFilteredInventory(event.getPlayer(), clickedMinecart);
         
         return;
