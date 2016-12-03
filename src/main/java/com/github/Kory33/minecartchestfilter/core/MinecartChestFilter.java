@@ -6,11 +6,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MinecartChestFilter extends JavaPlugin {
     public static final String FILTERED_MINECART_METAKEY = "cart_inventory_filtering_type";
     
-    private EventInterceptor eventInterceptor; 
+    private EventInterceptor eventInterceptor;
     
     @Override
     public void onEnable(){
-        this.getLogger().info("Loaded MinecartChestFilter. Started initialization...");
+        this.getLogger().info("Started initialization...");
         this.getLogger().info("Registering the events...");
         
         this.eventInterceptor = new EventInterceptor(this);
@@ -20,8 +20,6 @@ public class MinecartChestFilter extends JavaPlugin {
 
     @Override
     public void onDisable(){
-        this.getLogger().info("Finalizing MinecartChestFilter...");
-
         HandlerList.unregisterAll(eventInterceptor);
         
         this.getLogger().info("Unloaded/unregistered MinecartChestFilter successfully.");
