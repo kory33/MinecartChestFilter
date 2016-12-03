@@ -3,6 +3,8 @@ package com.github.Kory33.minecartchestfilter.core;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.Kory33.minecartchestfilter.listeners.EventInterceptor;
+
 public class MinecartChestFilter extends JavaPlugin {
     public static final String FILTERED_MINECART_METAKEY = "cart_inventory_filtering_type";
     
