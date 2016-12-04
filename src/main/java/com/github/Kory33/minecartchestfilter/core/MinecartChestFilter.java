@@ -35,7 +35,9 @@ public class MinecartChestFilter extends JavaPlugin {
         if(command.getName().equalsIgnoreCase("spawnfilteredstorageminecart")){
             return CommandProcessorUtil.spawnFSMinecart(sender, command, label, args);
         }
-        return true;
+        
+        sender.sendMessage("Command is not yet implemented.");
+        return false;
     };
     
     
