@@ -27,7 +27,11 @@ public class CommandProcessorUtil {
         
         Player pSender = (Player) sender;
         Entity spawnedMinecart = pSender.getWorld().spawnEntity(pSender.getLocation(), EntityType.MINECART_CHEST);
-        NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart);
+
+        if(!NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart)){
+            pSender.getServer().getLogger().info("Something went wrong; could not spawn filtered minecart!");
+            spawnedMinecart.remove();
+        }
         
         return true;
     }

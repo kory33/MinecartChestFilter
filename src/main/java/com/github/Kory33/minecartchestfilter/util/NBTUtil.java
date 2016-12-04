@@ -1,30 +1,32 @@
 package com.github.Kory33.minecartchestfilter.util;
 
+import java.util.Set;
+
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.StorageMinecart;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 
-import net.minecraft.server.v1_10_R1.NBTTagCompound;
-
 /**
  * Util class for manipulating NBT tags
- * Highly version-dependent.
+ * Highly version-dependent as this class involves direct NBT manipulation.
  */
 public class NBTUtil {
-    public static void addFilterNBTToSMinecart(StorageMinecart sMinecart){
+    /**
+     * Attempt to add filtered-minecart-specifier to the StorageMinecart
+     * @param sMinecart
+     * @return whether the NBT tag is successfully added
+     */
+    public static boolean addFilterNBTToSMinecart(StorageMinecart sMinecart){
         net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) sMinecart).getHandle();
-        NBTTagCompound nbtTag = new NBTTagCompound();
         
-        // fetch NBT tags
-        sMinecartHandler.c(nbtTag);
+        if(isEntityFilteredStorgeMinecart(sMinecart)){
+            return false;
+        }
         
-        //TODO add filtering NBT
-        nbtTag.setInt(MinecartChestFilter.FILTERED_MINECART_METAKEY, 1);
-        
-        // apply nbtTag
-        sMinecartHandler.f(nbtTag);
+        // grant Tags key to the Storage Minecart
+        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_METAKEY);
     }
     
     public static boolean isEntityFilteredStorgeMinecart(Entity checkTarget){
@@ -33,11 +35,10 @@ public class NBTUtil {
             return false;
         }
         
-        // check for NBT presence
-        if(!checkTarget.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
-            return false;
-        }
+        net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) checkTarget).getHandle();
         
-        return true;
+        // check for NBT presence
+        Set<String> entityTags = sMinecartHandler.P();
+        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_METAKEY);
     }
 }
