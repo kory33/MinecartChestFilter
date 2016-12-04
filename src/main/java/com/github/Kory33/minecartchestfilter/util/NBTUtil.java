@@ -1,6 +1,7 @@
 package com.github.Kory33.minecartchestfilter.util;
 
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.StorageMinecart;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
@@ -24,5 +25,19 @@ public class NBTUtil {
         
         // apply nbtTag
         sMinecartHandler.f(nbtTag);
+    }
+    
+    public static boolean isEntityFilteredStorgeMinecart(Entity checkTarget){
+        // check for entity type
+        if(!(checkTarget instanceof StorageMinecart)){
+            return false;
+        }
+        
+        // check for NBT presence
+        if(!checkTarget.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
+            return false;
+        }
+        
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginManager;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.event.PlayerInteractFilteredStorageMinecartEvent;
+import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 
 public class EventInterceptor implements Listener {
     private PluginManager pManager;
@@ -26,8 +27,7 @@ public class EventInterceptor implements Listener {
         Entity clickedEntity = event.getRightClicked();
         
         // if the clicked entity is a filtered storage minecart
-        if (clickedEntity instanceof StorageMinecart
-                && clickedEntity.hasMetadata(MinecartChestFilter.FILTERED_MINECART_METAKEY)){
+        if (NBTUtil.isEntityFilteredStorgeMinecart(clickedEntity)){
             event.setCancelled(true);
             
             PlayerInteractFilteredStorageMinecartEvent newEvent = 
