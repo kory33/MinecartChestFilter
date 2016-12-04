@@ -26,7 +26,7 @@ public class NBTUtil {
         }
         
         // grant Tags key to the Storage Minecart
-        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_METAKEY);
+        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_TAG_BASE);
     }
     
     public static boolean isEntityFilteredStorgeMinecart(Entity checkTarget){
@@ -39,6 +39,6 @@ public class NBTUtil {
         
         // check for NBT presence
         Set<String> entityTags = sMinecartHandler.P();
-        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_METAKEY);
+        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_TAG_BASE);
     }
 }

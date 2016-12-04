@@ -13,7 +13,7 @@ import com.github.Kory33.minecartchestfilter.listeners.FilteredStorageInteractEv
 import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 
 public class MinecartChestFilter extends JavaPlugin {
-    public static final String FILTERED_MINECART_METAKEY = "CartInventoryFilteringType";
+    public static final String FILTERED_MINECART_TAG_BASE = "CartInventoryFilteringType";
     
     private ArrayList<Listener> eventInterceptors;
     
