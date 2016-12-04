@@ -7,6 +7,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.StorageMinecart;
 
+
+/**
+ * Util class for processing commands
+ * @author Kory33
+ */
 public class CommandProcessorUtil {
     /**
      * Execute "/spawnFilteredStorageMinecart <type>"

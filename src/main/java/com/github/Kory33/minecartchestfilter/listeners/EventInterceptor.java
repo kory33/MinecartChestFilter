@@ -11,6 +11,10 @@ import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.event.PlayerInteractFilteredStorageMinecartEvent;
 import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 
+/**
+ * Class that intercepts Bukkit top-level events
+ * @author Kory33
+ */
 public class EventInterceptor implements Listener {
     private PluginManager pManager;
 

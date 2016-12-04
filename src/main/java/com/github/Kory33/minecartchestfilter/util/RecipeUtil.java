@@ -9,7 +9,16 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 
+/**
+ * Util class that interacts with recipes
+ * @author Kory33
+ *
+ */
 public class RecipeUtil {
+    /**
+     * Get a set of all smeltable ItemStacks
+     * @return set of all smeltable ItemStacks
+     */
     public static Set<ItemStack> getSmeltableItemStacks(){
         Set<ItemStack> smeltableItemStacks = new HashSet<>();
 
