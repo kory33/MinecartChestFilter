@@ -17,7 +17,7 @@ public class CommandProcessorUtil {
     public static boolean spawnFSMinecart(CommandSender sender, Command command, String label, String[] args){
         if(!(sender instanceof Player)){
             sender.sendMessage("Command only available for players.");
-            return false;
+            return true;
         }
         
         //TODO implement argument(type) processing
