@@ -1,3 +1,9 @@
 name: MinecartChestFilter
 main: com.github.Kory33.minecartchestfilter.core.MinecartChestFilter
 version: 0.0.1
+
+commands:
+    spawnFilteredStorageMinecart:
+        description: spawn filtered minecart at the location where the player is standing
+        usage: /spawnFilteredStorageMinecart <type>
+    aliases: spawnfsminecart
