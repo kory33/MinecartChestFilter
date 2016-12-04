@@ -2,7 +2,10 @@ package com.github.Kory33.minecartchestfilter.util;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.minecart.StorageMinecart;
 
 public class CommandProcessorUtil {
     /**
@@ -22,7 +25,9 @@ public class CommandProcessorUtil {
         
         //TODO implement argument(type) processing
         
-        //TODO spawn MinecartChest along with NBT that indicates a filter
+        Player pSender = (Player) sender;
+        Entity spawnedMinecart = pSender.getWorld().spawnEntity(pSender.getLocation(), EntityType.MINECART_CHEST);
+        NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart);
         
         return true;
     }
