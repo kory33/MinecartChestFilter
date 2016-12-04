@@ -6,4 +6,4 @@ commands:
     spawnFilteredStorageMinecart:
         description: spawn filtered minecart at the location where the player is standing
         usage: /spawnFilteredStorageMinecart <type>
-    aliases: spawnfsminecart
+        aliases: spawnfsminecart
