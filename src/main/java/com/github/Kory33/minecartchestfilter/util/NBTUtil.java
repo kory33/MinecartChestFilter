@@ -17,7 +17,7 @@ public class NBTUtil {
         NBTTagCompound nbtTag = new NBTTagCompound();
         
         // fetch NBT tags
-        sMinecartHandler.e(nbtTag);
+        sMinecartHandler.c(nbtTag);
         
         //TODO add filtering NBT
         nbtTag.setInt(MinecartChestFilter.FILTERED_MINECART_METAKEY, 1);
