@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.plugin.PluginManager;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
@@ -28,10 +29,15 @@ public class EventInterceptor implements Listener {
     
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
-        InventoryHolder invHolder = event.getClickedInventory().getHolder();
-        if (invHolder instanceof Entity && NBTUtil.isEntityFilteredStorgeMinecart((Entity) invHolder)){
+        InventoryView inventoryView = event.getView();
+        InventoryHolder topInventoryHolder = inventoryView.getTopInventory().getHolder();
+
+        if (topInventoryHolder instanceof Entity && NBTUtil.isEntityFilteredStorgeMinecart((Entity)topInventoryHolder)){
             FilteredInventoryUtil.processFilteredInventoryClick(event);
-            return;
+            
+            if(event.isCancelled()){
+                return;
+            }
         }
         
         return;
