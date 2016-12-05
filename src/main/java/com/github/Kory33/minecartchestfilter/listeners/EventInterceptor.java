@@ -30,6 +30,10 @@ public class EventInterceptor implements Listener {
     public void onPlayerInteract(PlayerInteractEntityEvent event){
         Entity clickedEntity = event.getRightClicked();
         
+        if (event instanceof PlayerInteractFilteredStorageMinecartEvent){
+            return;
+        }
+        
         // if the clicked entity is a filtered storage minecart
         if (NBTUtil.isEntityFilteredStorgeMinecart(clickedEntity)){
             event.setCancelled(true);
