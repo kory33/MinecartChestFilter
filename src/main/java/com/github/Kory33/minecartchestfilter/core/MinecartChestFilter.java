@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.github.Kory33.minecartchestfilter.listeners.EventInterceptor;
-import com.github.Kory33.minecartchestfilter.listeners.FilteredStorageInteractEventInterceptor;
 import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 
 public class MinecartChestFilter extends JavaPlugin {
@@ -24,7 +23,6 @@ public class MinecartChestFilter extends JavaPlugin {
         this.eventInterceptors = new ArrayList<Listener>();
         
         this.eventInterceptors.add(new EventInterceptor(this));
-        this.eventInterceptors.add(new FilteredStorageInteractEventInterceptor(this));
 
         this.getLogger().info("Completed initialization.");
     }
