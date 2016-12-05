@@ -1,10 +1,10 @@
 package com.github.Kory33.minecartchestfilter.listeners;
 
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.minecart.StorageMinecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.PluginManager;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
@@ -27,17 +27,13 @@ public class EventInterceptor implements Listener {
     
     
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEntityEvent event){
-        Entity clickedEntity = event.getRightClicked();
-        
-        // if the clicked entity is a filtered storage minecart
-        if (NBTUtil.isEntityFilteredStorgeMinecart(clickedEntity)){
-            event.setCancelled(true);
-            
-            FilteredInventoryUtil.openFilteredInventory(event.getPlayer(), (StorageMinecart) clickedEntity);
+    public void onInventoryClick(InventoryClickEvent event){
+        InventoryHolder invHolder = event.getClickedInventory().getHolder();
+        if (invHolder instanceof Entity && NBTUtil.isEntityFilteredStorgeMinecart((Entity) invHolder)){
+            FilteredInventoryUtil.processFilteredInventoryClick(event);
+            return;
         }
         
         return;
     }
-
 }
