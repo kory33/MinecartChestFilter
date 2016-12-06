@@ -40,7 +40,10 @@ public class FilteredInventoryUtil {
             return;
         }
 
-        event.setCancelled(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)destInventory.getHolder()));
+        // if the item should be filtered out
+        if(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)destInventory.getHolder())){
+            event.setCancelled(true);
+        }
 
         return;
     }
