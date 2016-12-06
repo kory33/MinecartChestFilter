@@ -10,20 +10,20 @@ import com.github.Kory33.minecartchestfilter.filter.Filter;
 public class FilteredInventoryUtil {
     public static void processFilteredInventoryClick(InventoryClickEvent event){
         Inventory clickedInventory = event.getClickedInventory();
+        Inventory destInventory = event.getView().getTopInventory();
         
-        boolean isClickedBottom = clickedInventory.equals(event.getView().getBottomInventory());
-        boolean isClickedTop = clickedInventory.equals(event.getView().getTopInventory());
-        
-        ItemStack filterCheckTarget = null;
-        
-        // if the item is moved by shift click
-        if(event.isShiftClick() && isClickedBottom){
-            filterCheckTarget = event.getCursor();
+        if(clickedInventory == null){
+            return;
         }
         
-        // if the item is moved by left click
-        if(event.isLeftClick() && isClickedTop){
+        boolean isClickedTop = clickedInventory.equals(event.getView().getTopInventory());
+        ItemStack filterCheckTarget = null;
+        
+        // detect the item that is being moved
+        if(event.isShiftClick() && !isClickedTop){
             filterCheckTarget = event.getCurrentItem();
+        }else if(!event.isShiftClick() && isClickedTop){
+            filterCheckTarget = event.getCursor();
         }
         
         // if the item is not being moved
@@ -31,7 +31,7 @@ public class FilteredInventoryUtil {
             return;
         }
         
-        event.setCancelled(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)clickedInventory.getHolder()));
+        event.setCancelled(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)destInventory.getHolder()));
 
         return;
     }

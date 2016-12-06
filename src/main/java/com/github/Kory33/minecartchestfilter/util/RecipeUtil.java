@@ -22,7 +22,6 @@ public class RecipeUtil {
     public static Set<ItemStack> getSmeltableItemStacks(){
         Set<ItemStack> smeltableItemStacks = new HashSet<>();
 
-        // On an assumption that the recipe is "injective" from the input to the output,
         // Acquire a list of all the smeltable itemstacks.
         Iterator<Recipe> itr = Bukkit.recipeIterator();
         while (itr.hasNext()){
