@@ -9,8 +9,16 @@ import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 public abstract class Filter {
     protected Filter(){}
     
+    /**
+     * Judges if the item is allowed through the filter
+     * @param itemStack the itemstack to be filtered
+     * @return if the item is allowed through the filter
+     */
     public abstract boolean isItemAllowed(ItemStack itemStack);
 
+    /**
+     * Initialize the internal filter dictionary
+     */
     protected abstract void initFilterDictionary();
     
     /**
