@@ -16,7 +16,7 @@ public class FilteredInventoryUtil {
             return;
         }
         
-        boolean isClickedTop = clickedInventory.equals(event.getView().getTopInventory());
+        boolean isClickedTop = clickedInventory.equals(destInventory);
         ItemStack filterCheckTarget = null;
         
         // detect the item that is being moved
@@ -27,10 +27,10 @@ public class FilteredInventoryUtil {
         }
         
         // if the item is not being moved
-        if(filterCheckTarget == null){
+        if(filterCheckTarget == null || filterCheckTarget.getAmount() == 0){
             return;
         }
-        
+
         event.setCancelled(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)destInventory.getHolder()));
 
         return;

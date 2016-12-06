@@ -14,13 +14,13 @@ public class FurnaceFilter extends Filter {
         initFilterDictionary();
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isItemAllowed(ItemStack itemStack) {
         Iterator<ItemStack> smeltableItr = FurnaceFilter.smeltableItemStackSet.iterator();
-        
         boolean isISSmeltable = false;
         while(smeltableItr.hasNext()){
-            if(smeltableItr.next().isSimilar(itemStack)){
+            if(smeltableItr.next().getTypeId() == itemStack.getTypeId()){
                 isISSmeltable = true;
                 break;
             }

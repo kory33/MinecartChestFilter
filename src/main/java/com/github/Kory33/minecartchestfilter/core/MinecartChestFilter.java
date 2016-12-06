@@ -17,7 +17,6 @@ import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 
 public class MinecartChestFilter extends JavaPlugin {
     public static final String FILTERED_MINECART_TAG_FURNACE = "CartInventoryFilteringType";
-
     // set of all the tags for filtering
     private static final Set<String> FILTERED_MINECART_TAG_SET = Stream.of(
                 FILTERED_MINECART_TAG_FURNACE
