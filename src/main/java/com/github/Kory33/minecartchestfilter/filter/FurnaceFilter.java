@@ -7,16 +7,16 @@ import org.bukkit.inventory.ItemStack;
 
 import com.github.Kory33.minecartchestfilter.util.RecipeUtil;
 
-public class FilterFurnace extends Filter {
+public class FurnaceFilter extends Filter {
     static private Set<ItemStack> smeltableItemStackSet;
     
-    public FilterFurnace() {
+    public FurnaceFilter() {
         initFilterDictionary();
     }
     
     @Override
     public boolean isItemAllowed(ItemStack itemStack) {
-        Iterator<ItemStack> smeltableItr = FilterFurnace.smeltableItemStackSet.iterator();
+        Iterator<ItemStack> smeltableItr = FurnaceFilter.smeltableItemStackSet.iterator();
         
         boolean isISSmeltable = false;
         while(smeltableItr.hasNext()){
