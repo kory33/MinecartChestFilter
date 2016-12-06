@@ -2,10 +2,15 @@ package com.github.Kory33.minecartchestfilter.util.inventory;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import com.github.Kory33.minecartchestfilter.filter.Filter;
+import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 
 public class FilteredInventoryUtil {
     public static void processFilteredInventoryClick(InventoryClickEvent event){
@@ -36,7 +41,28 @@ public class FilteredInventoryUtil {
         return;
     }
 
+    public static void processFilteredInventoryDrag(InventoryDragEvent event) {
+        // TODO implementation
+        return;
+    }
+
     private static boolean isAllowed(ItemStack filterCheckTarget, Entity holder) {
         return Filter.getFilterInstance(holder).isItemAllowed(filterCheckTarget);
+    }
+
+    /**
+     * Evaluates if the top inventory is of filtered storage minecart
+     * @param event in which the status is to be evaluated
+     * @return if the top inventory is of filtered storage minecart
+     */
+    public static boolean isTopInventoryFiltered(InventoryEvent event){
+        InventoryView inventoryView = event.getView();
+        InventoryHolder topInventoryHolder = inventoryView.getTopInventory().getHolder();
+        
+        if(!(topInventoryHolder instanceof Entity)){
+            return false;
+        }
+        
+        return NBTUtil.isEntityFilteredStorgeMinecart((Entity)topInventoryHolder);
     }
 }
