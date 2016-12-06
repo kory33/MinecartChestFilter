@@ -1,5 +1,9 @@
 package com.github.Kory33.minecartchestfilter.util.inventory;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -42,7 +46,28 @@ public class FilteredInventoryUtil {
     }
 
     public static void processFilteredInventoryDrag(InventoryDragEvent event) {
-        // TODO implementation
+        Inventory topInventory = event.getView().getTopInventory();
+
+        if(isAllowed(event.getOldCursor(), (Entity)topInventory.getHolder())){
+            return;
+        }
+        
+        Set<Integer> rawDraggedSlots = event.getRawSlots();
+        Set<Integer> rawFilteredDraggedSlots = new HashSet<>();
+
+        Iterator<Integer> slotItr = rawDraggedSlots.iterator();
+        while(slotItr.hasNext()){
+            int nextSlot = slotItr.next();
+            
+            // if the slot is included in the top inventory
+            if(nextSlot < topInventory.getSize()){
+                rawFilteredDraggedSlots.add(nextSlot);
+            }
+        }
+        
+        if(rawFilteredDraggedSlots.size() > 0){
+            event.setCancelled(true);
+        }
         return;
     }
 
