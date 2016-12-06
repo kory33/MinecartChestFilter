@@ -1,6 +1,9 @@
 package com.github.Kory33.minecartchestfilter.util;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
@@ -27,7 +30,7 @@ public class NBTUtil {
         }
         
         // grant Tags key to the Storage Minecart
-        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_TAG_BASE);
+        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE);
     }
     
     /**
@@ -45,6 +48,30 @@ public class NBTUtil {
         
         // check for NBT presence
         Set<String> entityTags = sMinecartHandler.P();
-        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_TAG_BASE);
+        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE);
+    }
+    
+    /**
+     * Get the filtering tag from the entity
+     * @param checkTarget Entity that is expected to have a single filtering tag
+     * @return filtering tag in string
+     * @throws IllegalStateException when illegal number of tags are contained in the entity tag set
+     */
+    @Nullable
+    public static String getFilteringTags(Entity checkTarget){
+        net.minecraft.server.v1_10_R1.Entity sEntityHandler = ((CraftEntity) checkTarget).getHandle();
+        
+        Set<String> tagsSet = sEntityHandler.P();
+        
+        Set<String> intersection = new HashSet<String>(tagsSet);
+        intersection.retainAll(MinecartChestFilter.getFilteredMinecartTagSet());
+        
+        if(intersection.size() == 0){
+            return null;
+        }else if (intersection.size() != 1){
+            throw new IllegalStateException("Checking filtering tag: check target entity contains more than two tags!");
+        }
+        
+        return intersection.iterator().next();
     }
 }

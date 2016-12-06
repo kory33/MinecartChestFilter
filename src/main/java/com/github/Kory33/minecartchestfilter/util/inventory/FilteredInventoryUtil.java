@@ -1,14 +1,15 @@
 package com.github.Kory33.minecartchestfilter.util.inventory;
 
-import org.bukkit.entity.minecart.StorageMinecart;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.github.Kory33.minecartchestfilter.filter.Filter;
+
 public class FilteredInventoryUtil {
     public static void processFilteredInventoryClick(InventoryClickEvent event){
         Inventory clickedInventory = event.getClickedInventory();
-        StorageMinecart storageMinecart = (StorageMinecart) clickedInventory.getHolder();
         
         boolean isClickedBottom = clickedInventory.equals(event.getView().getBottomInventory());
         boolean isClickedTop = clickedInventory.equals(event.getView().getTopInventory());
@@ -30,13 +31,12 @@ public class FilteredInventoryUtil {
             return;
         }
         
-        event.setCancelled(FilteredInventoryUtil.isFiltered(filterCheckTarget, storageMinecart));
+        event.setCancelled(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)clickedInventory.getHolder()));
 
         return;
     }
 
-    private static boolean isFiltered(ItemStack filterCheckTarget, StorageMinecart holder) {
-        //TODO implementation
-        return false;
+    private static boolean isAllowed(ItemStack filterCheckTarget, Entity holder) {
+        return Filter.getFilterInstance(holder).isItemAllowed(filterCheckTarget);
     }
 }

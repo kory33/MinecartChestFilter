@@ -1,6 +1,10 @@
 package com.github.Kory33.minecartchestfilter.core;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,7 +16,13 @@ import com.github.Kory33.minecartchestfilter.listeners.EventInterceptor;
 import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 
 public class MinecartChestFilter extends JavaPlugin {
-    public static final String FILTERED_MINECART_TAG_BASE = "CartInventoryFilteringType";
+    public static final String FILTERED_MINECART_TAG_FURNACE = "CartInventoryFilteringType";
+
+    // set of all the tags for filtering
+    private static final Set<String> FILTERED_MINECART_TAG_SET = Stream.of(
+                FILTERED_MINECART_TAG_FURNACE
+            ).collect(Collectors.toSet());
+    
     
     private ArrayList<Listener> eventInterceptors;
     
@@ -46,5 +56,9 @@ public class MinecartChestFilter extends JavaPlugin {
         }
         
         this.getLogger().info("Unloaded/unregistered MinecartChestFilter successfully.");
+    }
+    
+    public static Set<String> getFilteredMinecartTagSet(){
+        return new HashSet<>(MinecartChestFilter.FILTERED_MINECART_TAG_SET);
     }
 }
