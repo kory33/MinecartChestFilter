@@ -3,8 +3,7 @@ package com.github.Kory33.minecartchestfilter.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.StorageMinecart;
