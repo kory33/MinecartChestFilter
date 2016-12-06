@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 public class FilteredInventoryUtil {
     public static void processFilteredInventoryClick(InventoryClickEvent event){
         Inventory clickedInventory = event.getClickedInventory();
+        StorageMinecart storageMinecart = (StorageMinecart) clickedInventory.getHolder();
         
         boolean isClickedBottom = clickedInventory.equals(event.getView().getBottomInventory());
         boolean isClickedTop = clickedInventory.equals(event.getView().getTopInventory());
@@ -29,8 +30,7 @@ public class FilteredInventoryUtil {
             return;
         }
         
-        boolean isISFiltered = FilteredInventoryUtil.isFiltered(filterCheckTarget, (StorageMinecart)clickedInventory.getHolder());
-        event.setCancelled(isISFiltered);
+        event.setCancelled(FilteredInventoryUtil.isFiltered(filterCheckTarget, storageMinecart));
 
         return;
     }
