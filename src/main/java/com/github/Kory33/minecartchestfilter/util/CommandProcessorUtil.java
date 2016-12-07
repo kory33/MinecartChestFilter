@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 
-
 /**
  * Util class for processing commands
  * @author Kory33

@@ -34,14 +34,14 @@ public abstract class Filter {
      * @throws IllegalStateException when the entity is reported to contain unknown filtering tag
      */
     public static Filter getFilterInstance(Entity entity){
-        String string = NBTUtil.getFilteringTags(entity);
+        String filterTag = NBTUtil.getFilteringTags(entity);
         
-        if(string == null){
+        if(filterTag == null){
             throw new IllegalArgumentException("Saving filtering tag: entity does not contain any filtering tag!");
         }
         
         Filter filter = null;
-        switch(string){
+        switch(filterTag){
         case MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE:
             filter = new FurnaceFilter();
             break;

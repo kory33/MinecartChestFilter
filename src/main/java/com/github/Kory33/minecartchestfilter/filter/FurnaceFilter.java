@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import com.github.Kory33.minecartchestfilter.util.RecipeUtil;
 
 /**
- * Filter that only allows smeltable items.
+ * Filter that only allows smeltable items. 
  * @author Kory33
  *
  */
@@ -23,15 +23,15 @@ public class FurnaceFilter extends Filter {
     @Override
     public boolean isItemAllowed(ItemStack itemStack) {
         Iterator<ItemStack> smeltableItr = FurnaceFilter.smeltableItemStackSet.iterator();
-        boolean isISSmeltable = false;
+        boolean isItemSmeltable = false;
         while(smeltableItr.hasNext()){
             if(smeltableItr.next().getTypeId() == itemStack.getTypeId()){
-                isISSmeltable = true;
+                isItemSmeltable = true;
                 break;
             }
         }
         
-        return isISSmeltable;
+        return isItemSmeltable;
     }
 
     @Override
