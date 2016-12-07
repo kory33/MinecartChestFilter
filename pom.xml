@@ -2,9 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.Kory33</groupId>
   <artifactId>MinecartChestFilter</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>MinecartChestFilter</name>
-  <description>Features filtered minecarts' chests</description>
+  <description>Features filtered storage minecarts</description>
   <build>
    <plugins>
      <plugin>

@@ -7,6 +7,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.StorageMinecart;
 
+import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
+
 
 /**
  * Util class for processing commands
@@ -33,7 +35,9 @@ public class CommandProcessorUtil {
         Player pSender = (Player) sender;
         Entity spawnedMinecart = pSender.getWorld().spawnEntity(pSender.getLocation(), EntityType.MINECART_CHEST);
 
-        if(!NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart)){
+        String filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE;
+        
+        if(!NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart, filterKey)){
             pSender.getServer().getLogger().info("Something went wrong; could not spawn filtered minecart!");
             spawnedMinecart.remove();
         }

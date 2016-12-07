@@ -21,7 +21,7 @@ public class NBTUtil {
      * @param sMinecart target entity
      * @return whether the NBT tag is successfully added
      */
-    public static boolean addFilterNBTToSMinecart(StorageMinecart sMinecart){
+    public static boolean addFilterNBTToSMinecart(StorageMinecart sMinecart, String tagKey){
         net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) sMinecart).getHandle();
         
         if(isEntityFilteredStorgeMinecart(sMinecart)){
@@ -29,7 +29,7 @@ public class NBTUtil {
         }
         
         // grant Tags key to the Storage Minecart
-        return sMinecartHandler.a(MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE);
+        return sMinecartHandler.a(tagKey);
     }
     
     /**
