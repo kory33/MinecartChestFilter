@@ -10,9 +10,9 @@ To spawn filtered storage minecarts, simply run `/spawnFilteredStorageMinecart`(
 By default, this command is only available to the OP groups. Permissions to `filteredstorageminecart.*` may be granted if needed.
 
 ##TODOs
-Filter types(Brewing, Fuels, not-filters etc.)
-Log-in-time update notification
-In-game help command/detailed explanations
+Filter types(Brewing, Fuels, not-filters etc.)  
+Log-in-time update notification  
+In-game help command/detailed explanations  
 
 ##Compiling
 If you want to build from the source, you can either `git clone` or download the source from the [release page](https://github.com/Kory33/MinecartChestFilter/releases). Most dependencies are resolved by the Maven dependencies in pom.xml, however, this project utilizes several classes from NMS(net.minecraft.server). Therefore the NMS packages should be manually added to the build path while building.
