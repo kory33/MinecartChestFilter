@@ -10,7 +10,7 @@ import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.util.inventory.FilteredInventoryUtil;
 
 /**
- * Class that intercepts Bukkit top-level events
+ * Class that intercepts Bukkit-implemented events
  * @author Kory33
  */
 public class EventInterceptor implements Listener {

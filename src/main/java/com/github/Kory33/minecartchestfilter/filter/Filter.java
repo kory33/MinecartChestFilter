@@ -6,6 +6,11 @@ import org.bukkit.inventory.ItemStack;
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 
+/**
+ * Abstract class that represents generalized filter.
+ * @author Kory33
+ *
+ */
 public abstract class Filter {
     protected Filter(){}
     

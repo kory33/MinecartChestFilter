@@ -15,6 +15,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.github.Kory33.minecartchestfilter.listeners.EventInterceptor;
 import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 
+/**
+ * Core class of the MinecartChestFilter plug-in
+ * @author Kory33
+ *
+ */
 public class MinecartChestFilter extends JavaPlugin {
     public static final String FILTERED_MINECART_TAG_FURNACE = "CartInventoryFilteringType";
     // set of all the tags for filtering
@@ -57,6 +62,10 @@ public class MinecartChestFilter extends JavaPlugin {
         this.getLogger().info("Unloaded/unregistered MinecartChestFilter successfully.");
     }
     
+    /**
+     * Get the set of all the valid filter tags.
+     * @return set of all the valid filter tags
+     */
     public static Set<String> getFilteredMinecartTagSet(){
         return new HashSet<>(MinecartChestFilter.FILTERED_MINECART_TAG_SET);
     }

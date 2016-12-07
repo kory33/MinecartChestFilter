@@ -7,6 +7,11 @@ import org.bukkit.inventory.ItemStack;
 
 import com.github.Kory33.minecartchestfilter.util.RecipeUtil;
 
+/**
+ * Filter that only allows smeltable items.
+ * @author Kory33
+ *
+ */
 public class FurnaceFilter extends Filter {
     static private Set<ItemStack> smeltableItemStackSet;
     

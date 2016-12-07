@@ -16,7 +16,18 @@ import org.bukkit.inventory.ItemStack;
 import com.github.Kory33.minecartchestfilter.filter.Filter;
 import com.github.Kory33.minecartchestfilter.util.NBTUtil;
 
+/**
+ * Collection of miscellaneous methods related to filtered inventory
+ * @author Kory33
+ *
+ */
 public class FilteredInventoryUtil {
+    /**
+     * Process the InventoryClickEvent for the filtered inventory.
+     * This method can set the event cancelled,
+     * i.e. it runs event.setCancelled if the event should be cancelled.
+     * @param event
+     */
     public static void processFilteredInventoryClick(InventoryClickEvent event){
         Inventory clickedInventory = event.getClickedInventory();
         Inventory destInventory = event.getView().getTopInventory();
@@ -48,6 +59,12 @@ public class FilteredInventoryUtil {
         return;
     }
 
+    /**
+     * Process the InventoryDragEvent for the filtered inventory.
+     * This method can set the event cancelled,
+     * i.e. it runs event.setCancelled if the event should be cancelled.
+     * @param event
+     */
     public static void processFilteredInventoryDrag(InventoryDragEvent event) {
         Inventory topInventory = event.getView().getTopInventory();
 
@@ -74,6 +91,12 @@ public class FilteredInventoryUtil {
         return;
     }
 
+    /**
+     * Evaluates if the given itemstack is allowed to be placed in the filtered inventory.
+     * @param filterCheckTarget the itemstack against which the filtering is done
+     * @param holder the holder of the filtered inventory.
+     * @return if the given itemstack is allowed to be placed in the filtered inventory.
+     */
     private static boolean isAllowed(ItemStack filterCheckTarget, Entity holder) {
         return Filter.getFilterInstance(holder).isItemAllowed(filterCheckTarget);
     }
