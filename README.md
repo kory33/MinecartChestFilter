@@ -10,7 +10,7 @@ To spawn filtered storage minecarts, simply run `/spawnFilteredStorageMinecart`(
 By default, this command is only available to the OP groups. Permissions to `filteredstorageminecart.*` may be granted if needed.
 
 ##TODOs
-Filter types(Brewing, Fuels, not-filters etc.)  
+Filter types(Brewing, Fuels, NOT-filters etc.)  
 Log-in-time update notification  
 In-game help command/detailed explanations  
 
