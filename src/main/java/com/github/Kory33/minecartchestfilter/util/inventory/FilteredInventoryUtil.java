@@ -98,7 +98,9 @@ public class FilteredInventoryUtil {
      * @param event
      */
     public static void processFilteredInventoryMoveItem(InventoryMoveItemEvent event) {
-        //TODO implementation
+        if(!isAllowed(event.getItem(), (Entity)event.getDestination().getHolder())){
+            event.setCancelled(true);
+        }
     }
     
     /**
