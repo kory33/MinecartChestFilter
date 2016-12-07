@@ -33,7 +33,7 @@ public abstract class Filter {
      * @throws IllegalArgumentException when the entity does not contain any filtering tag
      * @throws IllegalStateException when the entity is reported to contain unknown filtering tag
      */
-    public static Filter getFilterInstance(Entity entity){
+    public static final Filter getFilterInstance(Entity entity){
         String filterTag = NBTUtil.getFilteringTags(entity);
         
         if(filterTag == null){
