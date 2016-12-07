@@ -46,8 +46,9 @@ public class NBTUtil {
         net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) checkTarget).getHandle();
         
         // check for NBT presence
-        Set<String> entityTags = sMinecartHandler.P();
-        return entityTags.contains(MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE);
+        Set<String> entityFilteringTags = new HashSet<>(sMinecartHandler.P());
+        entityFilteringTags.retainAll(MinecartChestFilter.getFilteredMinecartTagSet());
+        return entityFilteringTags.size() != 0;
     }
     
     /**
