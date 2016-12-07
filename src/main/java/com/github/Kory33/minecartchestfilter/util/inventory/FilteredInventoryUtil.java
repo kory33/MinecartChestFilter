@@ -10,7 +10,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import com.github.Kory33.minecartchestfilter.filter.Filter;
@@ -102,18 +101,26 @@ public class FilteredInventoryUtil {
     }
 
     /**
-     * Evaluates if the top inventory is of filtered storage minecart
+     * Evaluates if the top inventory is owned by a filtered storage minecart
      * @param event in which the status is to be evaluated
-     * @return if the top inventory is of filtered storage minecart
+     * @return if the top inventory is owned by a filtered storage minecart
      */
     public static boolean isTopInventoryFiltered(InventoryEvent event){
-        InventoryView inventoryView = event.getView();
-        InventoryHolder topInventoryHolder = inventoryView.getTopInventory().getHolder();
+        return FilteredInventoryUtil.isInventoryFiltered(event.getView().getTopInventory());
+    }
+    
+    /**
+     * Evaluates if the given inventory is owned by a filtered storage minecart
+     * @param checkTarget target for the evaluation
+     * @return if the given inventory is owned by a filtered storage minecart
+     */
+    public static boolean isInventoryFiltered(Inventory checkTarget){
+        InventoryHolder inventoryHolder = checkTarget.getHolder();
         
-        if(!(topInventoryHolder instanceof Entity)){
+        if(!(inventoryHolder instanceof Entity)){
             return false;
         }
         
-        return NBTUtil.isEntityFilteredStorgeMinecart((Entity)topInventoryHolder);
+        return NBTUtil.isEntityFilteredStorgeMinecart((Entity) inventoryHolder);
     }
 }
