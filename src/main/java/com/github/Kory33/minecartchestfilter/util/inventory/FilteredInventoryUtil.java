@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -90,6 +91,16 @@ public class FilteredInventoryUtil {
         return;
     }
 
+    /**
+     * Process the InventoryMoveItemEvent for the filtered inventory.
+     * This method can set the event cancelled,
+     * i.e. it runs event.setCancelled if the event should be cancelled.
+     * @param event
+     */
+    public static void processFilteredInventoryMoveItem(InventoryMoveItemEvent event) {
+        //TODO implementation
+    }
+    
     /**
      * Evaluates if the given itemstack is allowed to be placed in the filtered inventory.
      * @param filterCheckTarget the itemstack against which the filtering is done
