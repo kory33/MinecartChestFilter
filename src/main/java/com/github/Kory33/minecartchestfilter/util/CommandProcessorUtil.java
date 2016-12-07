@@ -2,10 +2,7 @@ package com.github.Kory33.minecartchestfilter.util;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.minecart.StorageMinecart;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 
@@ -33,13 +30,10 @@ public class CommandProcessorUtil {
         //TODO implement argument(type) processing
         
         Player pSender = (Player) sender;
-        Entity spawnedMinecart = pSender.getWorld().spawnEntity(pSender.getLocation(), EntityType.MINECART_CHEST);
-
         String filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE;
         
-        if(!NBTUtil.addFilterNBTToSMinecart((StorageMinecart)spawnedMinecart, filterKey)){
+        if(!EntityUtil.spawnFilteredMinecart(pSender.getWorld(), pSender.getLocation(), filterKey)){
             pSender.getServer().getLogger().info("Something went wrong; could not spawn filtered minecart!");
-            spawnedMinecart.remove();
         }
         
         return true;
