@@ -45,6 +45,16 @@ public final class TagsUtil {
     }
     
     /**
+     * get filter name from filter key
+     * @param filterTag
+     * @return
+     */
+    @Nullable
+    public static String getFilterNameFromTag(String filterTag){
+        return FILTERED_MINECART_FILTER_NAME_MAP.get(filterTag);
+    }
+    
+    /**
      * get filter key from command argument
      * @param commandArgument
      * @return filter key corresponding to command argument

@@ -30,6 +30,10 @@ public final class NBTUtil {
         return sMinecartHandler.a(tagKey);
     }
     
+    public static void addFilterNameToSMinecart(StorageMinecart sMinecart, String filterName){
+        sMinecart.setCustomName(sMinecart.getName() + " [" + filterName + "]");
+    }
+    
     /**
      * Check if the given entity is a filtered-storage minecart
      * @param checkTarget target entity

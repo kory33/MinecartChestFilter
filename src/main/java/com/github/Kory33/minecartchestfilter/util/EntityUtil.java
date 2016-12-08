@@ -30,6 +30,8 @@ public final class EntityUtil {
             return false;
         }
         
+        NBTUtil.addFilterNameToSMinecart((StorageMinecart)spawnedMinecart, TagsUtil.getFilterNameFromTag(filteringTag));
+        
         return true;
     }
 }
