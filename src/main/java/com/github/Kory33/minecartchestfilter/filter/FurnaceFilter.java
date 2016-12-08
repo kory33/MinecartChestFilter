@@ -5,8 +5,8 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * Filter that only allows smeltable items. 
+ * Implementation utilizes version-dependent methods.
  * @author Kory33
- *
  */
 public class FurnaceFilter extends Filter {
     @Override
