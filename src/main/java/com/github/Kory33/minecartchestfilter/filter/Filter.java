@@ -42,6 +42,7 @@ public abstract class Filter {
             break;
         case TagsUtil.FILTERED_MINECART_TAG_FUEL:
             filter = new FuelFilter();
+            break;
         default:
             throw new IllegalStateException("Saving filtering tag: got unexpected tag!");
         }
