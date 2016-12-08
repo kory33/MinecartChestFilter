@@ -13,7 +13,7 @@ import org.bukkit.entity.minecart.StorageMinecart;
  * Highly version-dependent as this class involves direct NBT manipulation.
  * @author Kory33
  */
-public class NBTUtil {
+public final class NBTUtil {
     /**
      * Attempt to add filtered-minecart specifier to the StorageMinecart
      * @param sMinecart target entity

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
  * Util class for processing commands
  * @author Kory33
  */
-public class CommandProcessorUtil {
+public final class CommandProcessorUtil {
     /**
      * Execute "/spawnFilteredStorageMinecart <type>"
      * 

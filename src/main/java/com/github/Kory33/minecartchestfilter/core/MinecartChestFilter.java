@@ -16,7 +16,7 @@ import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
  * @author Kory33
  *
  */
-public class MinecartChestFilter extends JavaPlugin {    
+public final class MinecartChestFilter extends JavaPlugin {    
     private ArrayList<Listener> eventInterceptors;
     
     @Override

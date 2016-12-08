@@ -11,7 +11,7 @@ import org.bukkit.entity.minecart.StorageMinecart;
  * @author Kory33
  *
  */
-public class EntityUtil {
+public final class EntityUtil {
     /**
      * Spawn the minecart to which the filtering tag is attached.
      * @param world World in which the entity will be spawned

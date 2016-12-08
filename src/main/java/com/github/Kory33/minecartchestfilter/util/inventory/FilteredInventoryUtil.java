@@ -21,7 +21,7 @@ import com.github.Kory33.minecartchestfilter.util.NBTUtil;
  * @author Kory33
  *
  */
-public class FilteredInventoryUtil {
+public final class FilteredInventoryUtil {
     /**
      * Process the InventoryClickEvent for the filtered inventory.
      * This method can set the event cancelled,

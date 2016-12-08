@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
  * Implementation utilizes version-dependent methods.
  * @author Kory33
  */
-public class FuelFilter extends Filter {
+public final class FuelFilter extends Filter {
     @Override
     public boolean isItemAllowed(ItemStack itemStack) {
         net.minecraft.server.v1_10_R1.ItemStack nmItemStack = CraftItemStack.asNMSCopy(itemStack);
