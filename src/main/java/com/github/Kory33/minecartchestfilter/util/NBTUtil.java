@@ -30,6 +30,11 @@ public final class NBTUtil {
         return sMinecartHandler.a(tagKey);
     }
     
+    /**
+     * Add a filter's name to the minecart name
+     * @param sMinecart
+     * @param filterName
+     */
     public static void addFilterNameToSMinecart(StorageMinecart sMinecart, String filterName){
         sMinecart.setCustomName(sMinecart.getName() + " [" + filterName + "]");
     }

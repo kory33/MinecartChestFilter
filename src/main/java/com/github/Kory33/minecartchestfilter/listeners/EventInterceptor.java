@@ -27,7 +27,7 @@ public class EventInterceptor implements Listener {
     
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
-        if (FilteredInventoryUtil.isInventoryFiltered(event.getClickedInventory())){
+        if (FilteredInventoryUtil.isTopInventoryFiltered(event)){
             FilteredInventoryUtil.processFilteredInventoryClick(event);
             
             if(event.isCancelled()){
