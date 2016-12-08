@@ -9,11 +9,9 @@ import org.bukkit.inventory.ItemStack;
  * @author Kory33
  */
 public class FuelFilter extends Filter {
-
     @Override
     public boolean isItemAllowed(ItemStack itemStack) {
         net.minecraft.server.v1_10_R1.ItemStack nmItemStack = CraftItemStack.asNMSCopy(itemStack);
         return net.minecraft.server.v1_10_R1.TileEntityFurnace.isFuel(nmItemStack);
     }
-
 }
