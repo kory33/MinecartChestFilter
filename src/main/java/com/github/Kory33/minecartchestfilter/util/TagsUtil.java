@@ -27,12 +27,21 @@ public final class TagsUtil {
 
     
     /** mapping of filter tag to filter name */
-    public static Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
+    public static final Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
     static{
         Map<String, String> map = new HashMap<>();
         map.put(TagsUtil.FILTERED_MINECART_TAG_FURNACE, "Furnace filter");
         map.put(TagsUtil.FILTERED_MINECART_TAG_FUEL, "Fuel Filter");
         FILTERED_MINECART_FILTER_NAME_MAP = Collections.unmodifiableMap(map);
+    }
+    
+    /** mapping of command argument to filter tag */
+    private static final Map<String, String> CMDARG_FILTER_TAGS_MAP;
+    static{
+        Map<String, String> map = new HashMap<>();
+        map.put("fuel", FILTERED_MINECART_TAG_FUEL);
+        map.put("furnace", FILTERED_MINECART_TAG_FURNACE);
+        CMDARG_FILTER_TAGS_MAP = Collections.unmodifiableMap(map);
     }
     
     /**
@@ -42,13 +51,6 @@ public final class TagsUtil {
      */
     @Nullable
     public static String getFilterKeyFromCommandArgument(String commandArgument){
-        // TODO use map instead?
-        if(commandArgument.equalsIgnoreCase("fuel")){
-            return TagsUtil.FILTERED_MINECART_TAG_FUEL;
-        }else if(commandArgument.equalsIgnoreCase("furnace")){
-            return TagsUtil.FILTERED_MINECART_TAG_FURNACE;
-        }
-        
-        return null;
+        return CMDARG_FILTER_TAGS_MAP.get(commandArgument);
     }
 }
