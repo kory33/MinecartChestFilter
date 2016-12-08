@@ -4,8 +4,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
-
 /**
  * Util class for processing commands
  * @author Kory33
@@ -31,11 +29,11 @@ public class CommandProcessorUtil {
         }
         
         // tag defaults to the furnace filter
-        String filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE;
+        String filterKey = TagsUtil.FILTERED_MINECART_TAG_FURNACE;
 
         if(args.length == 1){
             if(args[0].equalsIgnoreCase("fuel")){
-                filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FUEL;
+                filterKey = TagsUtil.FILTERED_MINECART_TAG_FUEL;
             }else{
                 return false;
             }

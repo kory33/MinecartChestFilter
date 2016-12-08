@@ -8,8 +8,6 @@ import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.StorageMinecart;
 
-import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
-
 /**
  * Util class for manipulating NBT tags
  * Highly version-dependent as this class involves direct NBT manipulation.
@@ -47,7 +45,7 @@ public class NBTUtil {
         
         // check for NBT presence
         Set<String> entityFilteringTags = new HashSet<>(sMinecartHandler.P());
-        entityFilteringTags.retainAll(MinecartChestFilter.getFilteredMinecartTagSet());
+        entityFilteringTags.retainAll(TagsUtil.getFilteredMinecartTagSet());
         return entityFilteringTags.size() != 0;
     }
     
@@ -64,7 +62,7 @@ public class NBTUtil {
         Set<String> tagsSet = sEntityHandler.P();
         
         Set<String> intersection = new HashSet<String>(tagsSet);
-        intersection.retainAll(MinecartChestFilter.getFilteredMinecartTagSet());
+        intersection.retainAll(TagsUtil.getFilteredMinecartTagSet());
         
         if(intersection.size() == 0){
             return null;

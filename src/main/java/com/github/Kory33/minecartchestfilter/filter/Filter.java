@@ -3,8 +3,8 @@ package com.github.Kory33.minecartchestfilter.filter;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
-import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.util.NBTUtil;
+import com.github.Kory33.minecartchestfilter.util.TagsUtil;
 
 /**
  * Abstract class that represents generalized filter.
@@ -37,10 +37,10 @@ public abstract class Filter {
         
         Filter filter = null;
         switch(filterTag){
-        case MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE:
+        case TagsUtil.FILTERED_MINECART_TAG_FURNACE:
             filter = new FurnaceFilter();
             break;
-        case MinecartChestFilter.FILTERED_MINECART_TAG_FUEL:
+        case TagsUtil.FILTERED_MINECART_TAG_FUEL:
             filter = new FuelFilter();
         default:
             throw new IllegalStateException("Saving filtering tag: got unexpected tag!");
