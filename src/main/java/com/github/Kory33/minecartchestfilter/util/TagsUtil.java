@@ -2,7 +2,6 @@ package com.github.Kory33.minecartchestfilter.util;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class TagsUtil {
     public static final Set<String> FILTERED_MINECART_TAG_SET = Collections.unmodifiableSet(Stream.of(
                 FILTERED_MINECART_TAG_FURNACE,
                 FILTERED_MINECART_TAG_FUEL
-            ).collect(Collectors.toSet()));    
+            ).collect(Collectors.toSet()));
 
     
     /** mapping of filter tag to filter name */
@@ -32,14 +31,5 @@ public class TagsUtil {
         map.put(TagsUtil.FILTERED_MINECART_TAG_FURNACE, "Furnace filter");
         map.put(TagsUtil.FILTERED_MINECART_TAG_FUEL, "Fuel Filter");
         FILTERED_MINECART_FILTER_NAME_MAP = Collections.unmodifiableMap(map);
-    }    
-
-    
-    /**
-     * Get the set of all the valid filter tags.
-     * @return set of all the valid filter tags
-     */
-    public static Set<String> getFilteredMinecartTagSet(){
-        return new HashSet<>(TagsUtil.FILTERED_MINECART_TAG_SET);
     }
 }

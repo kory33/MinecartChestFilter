@@ -45,7 +45,7 @@ public class NBTUtil {
         
         // check for NBT presence
         Set<String> entityFilteringTags = new HashSet<>(sMinecartHandler.P());
-        entityFilteringTags.retainAll(TagsUtil.getFilteredMinecartTagSet());
+        entityFilteringTags.retainAll(TagsUtil.FILTERED_MINECART_TAG_SET);
         return entityFilteringTags.size() != 0;
     }
     
@@ -62,7 +62,7 @@ public class NBTUtil {
         Set<String> tagsSet = sEntityHandler.P();
         
         Set<String> intersection = new HashSet<String>(tagsSet);
-        intersection.retainAll(TagsUtil.getFilteredMinecartTagSet());
+        intersection.retainAll(TagsUtil.FILTERED_MINECART_TAG_SET);
         
         if(intersection.size() == 0){
             return null;
