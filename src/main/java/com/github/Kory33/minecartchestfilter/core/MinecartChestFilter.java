@@ -1,7 +1,10 @@
 package com.github.Kory33.minecartchestfilter.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,12 +24,21 @@ import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
  *
  */
 public class MinecartChestFilter extends JavaPlugin {
+    /** tag for the furnace-filtered storage minecart */
     public static final String FILTERED_MINECART_TAG_FURNACE = "CartInventoryFilteringType";
-    // set of all the tags for filtering
-    private static final Set<String> FILTERED_MINECART_TAG_SET = Stream.of(
+
+    /** set of all the filtering tags */
+    private static final Set<String> FILTERED_MINECART_TAG_SET = Collections.unmodifiableSet(Stream.of(
                 FILTERED_MINECART_TAG_FURNACE
-            ).collect(Collectors.toSet());
+            ).collect(Collectors.toSet()));
     
+    /** mapping of filter tag to filter name */
+    public static final Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
+    static{
+        Map<String, String> map = new HashMap<>();
+        map.put(FILTERED_MINECART_TAG_FURNACE, "Furnace filter");
+        FILTERED_MINECART_FILTER_NAME_MAP = Collections.unmodifiableMap(map);
+    }
     
     private ArrayList<Listener> eventInterceptors;
     
