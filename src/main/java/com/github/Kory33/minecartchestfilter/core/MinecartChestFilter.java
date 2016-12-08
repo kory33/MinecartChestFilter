@@ -26,17 +26,22 @@ import com.github.Kory33.minecartchestfilter.util.CommandProcessorUtil;
 public class MinecartChestFilter extends JavaPlugin {
     /** tag for the furnace-filtered storage minecart */
     public static final String FILTERED_MINECART_TAG_FURNACE = "FilteredMinecartFurnaceFilter";
+    public static final String FILTERED_MINECART_TAG_FUEL = "FilteredMinecartFuelFilter";
 
+    
     /** set of all the filtering tags */
     private static final Set<String> FILTERED_MINECART_TAG_SET = Collections.unmodifiableSet(Stream.of(
-                FILTERED_MINECART_TAG_FURNACE
+                FILTERED_MINECART_TAG_FURNACE,
+                FILTERED_MINECART_TAG_FUEL
             ).collect(Collectors.toSet()));
+
     
     /** mapping of filter tag to filter name */
     public static final Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
     static{
         Map<String, String> map = new HashMap<>();
         map.put(FILTERED_MINECART_TAG_FURNACE, "Furnace filter");
+        map.put(FILTERED_MINECART_TAG_FUEL, "Fuel Filter");
         FILTERED_MINECART_FILTER_NAME_MAP = Collections.unmodifiableMap(map);
     }
     
