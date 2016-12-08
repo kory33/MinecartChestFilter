@@ -35,8 +35,14 @@ public final class TagsUtil {
         FILTERED_MINECART_FILTER_NAME_MAP = Collections.unmodifiableMap(map);
     }
     
+    /**
+     * get filter key from command argument
+     * @param commandArgument
+     * @return filter key corresponding to command argument
+     */
     @Nullable
     public static String getFilterKeyFromCommandArgument(String commandArgument){
+        // TODO use map instead?
         if(commandArgument.equalsIgnoreCase("fuel")){
             return TagsUtil.FILTERED_MINECART_TAG_FUEL;
         }else if(commandArgument.equalsIgnoreCase("furnace")){
