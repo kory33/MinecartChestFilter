@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * Collection of methods and constants that are related to Tags
  * @author Kory33
  */
-public class TagsUtil {
+public final class TagsUtil {
     /** tag for the furnace-filtered storage minecart */
     public static final String FILTERED_MINECART_TAG_FURNACE = "FilteredMinecartFurnaceFilter";
     public static final String FILTERED_MINECART_TAG_FUEL = "FilteredMinecartFuelFilter";
@@ -25,7 +25,7 @@ public class TagsUtil {
 
     
     /** mapping of filter tag to filter name */
-    public static final Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
+    public static Map<String, String> FILTERED_MINECART_FILTER_NAME_MAP;
     static{
         Map<String, String> map = new HashMap<>();
         map.put(TagsUtil.FILTERED_MINECART_TAG_FURNACE, "Furnace filter");
