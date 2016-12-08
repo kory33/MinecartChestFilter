@@ -34,8 +34,10 @@ public class FurnaceFilter extends Filter {
         return isItemSmeltable;
     }
 
-    @Override
-    protected void initFilterDictionary() {
+    /**
+     * Initialize the dictionary of items that are allowed to pass the filter
+     */
+    private void initFilterDictionary() {
         if(smeltableItemStackSet != null){
             return;
         }

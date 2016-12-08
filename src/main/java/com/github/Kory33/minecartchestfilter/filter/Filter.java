@@ -22,11 +22,6 @@ public abstract class Filter {
     public abstract boolean isItemAllowed(ItemStack itemStack);
 
     /**
-     * Initialize the internal filter dictionary
-     */
-    protected abstract void initFilterDictionary();
-    
-    /**
      * Get an instance of appropriate filter for the given entity
      * @param entity entity that contains filtering tag
      * @return instance of extended Filter class
