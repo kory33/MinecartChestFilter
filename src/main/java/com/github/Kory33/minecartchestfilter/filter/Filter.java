@@ -40,6 +40,8 @@ public abstract class Filter {
         case MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE:
             filter = new FurnaceFilter();
             break;
+        case MinecartChestFilter.FILTERED_MINECART_TAG_FUEL:
+            filter = new FuelFilter();
         default:
             throw new IllegalStateException("Saving filtering tag: got unexpected tag!");
         }
