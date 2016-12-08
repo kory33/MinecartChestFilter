@@ -26,10 +26,22 @@ public class CommandProcessorUtil {
             return true;
         }
         
-        //TODO implement argument(type) processing
+        if(args.length > 1){
+            return false;
+        }
+        
+        // tag defaults to the furnace filter
+        String filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE;
+
+        if(args.length == 1){
+            if(args[0].equalsIgnoreCase("fuel")){
+                filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FUEL;
+            }else{
+                return false;
+            }
+        }
         
         Player pSender = (Player) sender;
-        String filterKey = MinecartChestFilter.FILTERED_MINECART_TAG_FURNACE;
         
         if(!EntityUtil.spawnFilteredMinecart(pSender.getWorld(), pSender.getLocation(), filterKey)){
             pSender.getServer().getLogger().info("Something went wrong; could not spawn filtered minecart!");
