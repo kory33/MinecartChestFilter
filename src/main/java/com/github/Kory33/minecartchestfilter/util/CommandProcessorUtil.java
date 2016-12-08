@@ -32,11 +32,11 @@ public class CommandProcessorUtil {
         String filterKey = TagsUtil.FILTERED_MINECART_TAG_FURNACE;
 
         if(args.length == 1){
-            if(args[0].equalsIgnoreCase("fuel")){
-                filterKey = TagsUtil.FILTERED_MINECART_TAG_FUEL;
-            }else{
-                return false;
-            }
+            filterKey = TagsUtil.getFilterKeyFromCommandArgument(args[0]);
+        }
+        
+        if(filterKey == null){
+            return false;
         }
         
         Player pSender = (Player) sender;
