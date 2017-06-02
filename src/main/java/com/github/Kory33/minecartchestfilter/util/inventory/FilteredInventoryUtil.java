@@ -1,7 +1,6 @@
 package com.github.Kory33.minecartchestfilter.util.inventory;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.bukkit.entity.Entity;
@@ -26,7 +25,7 @@ public final class FilteredInventoryUtil {
      * Process the InventoryClickEvent for the filtered inventory.
      * This method can set the event cancelled,
      * i.e. it runs event.setCancelled if the event should be cancelled.
-     * @param event
+     * @param event inventory click event
      */
     public static void processFilteredInventoryClick(InventoryClickEvent event){
         Inventory clickedInventory = event.getClickedInventory();
@@ -55,15 +54,13 @@ public final class FilteredInventoryUtil {
         if(!FilteredInventoryUtil.isAllowed(filterCheckTarget, (Entity)destInventory.getHolder())){
             event.setCancelled(true);
         }
-
-        return;
     }
 
     /**
      * Process the InventoryDragEvent for the filtered inventory.
      * This method can set the event cancelled,
      * i.e. it runs event.setCancelled if the event should be cancelled.
-     * @param event
+     * @param event inventory click event
      */
     public static void processFilteredInventoryDrag(InventoryDragEvent event) {
         Inventory topInventory = event.getView().getTopInventory();
@@ -75,12 +72,9 @@ public final class FilteredInventoryUtil {
         Set<Integer> rawDraggedSlots = event.getRawSlots();
         Set<Integer> rawFilteredDraggedSlots = new HashSet<>();
 
-        Iterator<Integer> slotItr = rawDraggedSlots.iterator();
-        while(slotItr.hasNext()){
-            int nextSlot = slotItr.next();
-            
+        for (Integer nextSlot : rawDraggedSlots) {
             // if the slot is included in the top inventory
-            if(nextSlot < topInventory.getSize()){
+            if (nextSlot < topInventory.getSize()) {
                 rawFilteredDraggedSlots.add(nextSlot);
             }
         }
@@ -88,14 +82,13 @@ public final class FilteredInventoryUtil {
         if(rawFilteredDraggedSlots.size() > 0){
             event.setCancelled(true);
         }
-        return;
     }
 
     /**
      * Process the InventoryMoveItemEvent for the filtered inventory.
      * This method can set the event cancelled,
      * i.e. it runs event.setCancelled if the event should be cancelled.
-     * @param event
+     * @param event inventory click event
      */
     public static void processFilteredInventoryMoveItem(InventoryMoveItemEvent event) {
         if(!isAllowed(event.getItem(), (Entity)event.getDestination().getHolder())){
@@ -127,13 +120,10 @@ public final class FilteredInventoryUtil {
      * @param checkTarget target for the evaluation
      * @return if the given inventory is owned by a filtered storage minecart
      */
-    public static boolean isInventoryFiltered(Inventory checkTarget){
+    public static boolean isInventoryFiltered(Inventory checkTarget) {
         InventoryHolder inventoryHolder = checkTarget.getHolder();
-        
-        if(!(inventoryHolder instanceof Entity)){
-            return false;
-        }
-        
-        return NBTUtil.isEntityFilteredStorgeMinecart((Entity) inventoryHolder);
+
+        return inventoryHolder instanceof Entity && NBTUtil.isEntityFilteredStorgeMinecart((Entity) inventoryHolder);
+
     }
 }

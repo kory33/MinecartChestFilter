@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
-import org.bukkit.plugin.PluginManager;
 
 import com.github.Kory33.minecartchestfilter.core.MinecartChestFilter;
 import com.github.Kory33.minecartchestfilter.util.inventory.FilteredInventoryUtil;
@@ -15,11 +14,9 @@ import com.github.Kory33.minecartchestfilter.util.inventory.FilteredInventoryUti
  * @author Kory33
  */
 public class EventInterceptor implements Listener {
-    private PluginManager pManager;
 
     public EventInterceptor(MinecartChestFilter plugin){
-        this.pManager = plugin.getServer().getPluginManager();
-        this.pManager.registerEvents(this, plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         
         plugin.getLogger().info("Registered core interceptors");
     }
@@ -29,12 +26,7 @@ public class EventInterceptor implements Listener {
     public void onInventoryClick(InventoryClickEvent event){
         if (FilteredInventoryUtil.isTopInventoryFiltered(event)){
             FilteredInventoryUtil.processFilteredInventoryClick(event);
-            
-            if(event.isCancelled()){
-                return;
-            }
         }
-        return;
     }
     
     
@@ -42,12 +34,7 @@ public class EventInterceptor implements Listener {
     public void onInventoryDrag(InventoryDragEvent event){
         if (FilteredInventoryUtil.isTopInventoryFiltered(event)){
             FilteredInventoryUtil.processFilteredInventoryDrag(event);
-            
-            if(event.isCancelled()){
-                return;
-            }
         }
-        return;
     }
     
     
@@ -55,10 +42,6 @@ public class EventInterceptor implements Listener {
     public void onInventoryMoveItem(InventoryMoveItemEvent event){
         if (FilteredInventoryUtil.isInventoryFiltered(event.getDestination())){
             FilteredInventoryUtil.processFilteredInventoryMoveItem(event);
-            
-            if(event.isCancelled()){
-                return;
-            }
         }
     }
 }

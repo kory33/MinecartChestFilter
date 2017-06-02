@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
-
 /**
  * Collection of methods and constants that are related to Tags
  * @author Kory33
@@ -49,7 +47,6 @@ public final class TagsUtil {
      * @param filterTag
      * @return
      */
-    @Nullable
     public static String getFilterNameFromTag(String filterTag){
         return FILTERED_MINECART_FILTER_NAME_MAP.get(filterTag);
     }
@@ -59,7 +56,6 @@ public final class TagsUtil {
      * @param commandArgument
      * @return filter key corresponding to command argument
      */
-    @Nullable
     public static String getFilterKeyFromCommandArgument(String commandArgument){
         return CMDARG_FILTER_TAGS_MAP.get(commandArgument);
     }

@@ -23,7 +23,7 @@ public final class MinecartChestFilter extends JavaPlugin {
     public void onEnable(){
         this.getLogger().info("Started initialization...");
         
-        this.eventInterceptors = new ArrayList<Listener>();
+        this.eventInterceptors = new ArrayList<>();
         
         this.eventInterceptors.add(new EventInterceptor(this));
 
@@ -39,7 +39,7 @@ public final class MinecartChestFilter extends JavaPlugin {
         
         sender.sendMessage("Command is not yet implemented.");
         return false;
-    };
+    }
     
     
     @Override

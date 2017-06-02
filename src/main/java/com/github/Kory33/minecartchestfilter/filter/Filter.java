@@ -28,25 +28,19 @@ public abstract class Filter {
      * @throws IllegalArgumentException when the entity does not contain any filtering tag
      * @throws IllegalStateException when the entity is reported to contain unknown filtering tag
      */
-    public static final Filter getFilterInstance(Entity entity){
+    public static Filter getFilterInstance(Entity entity){
         String filterTag = NBTUtil.getFilteringTags(entity);
         
         if(filterTag == null){
             throw new IllegalArgumentException("Saving filtering tag: entity does not contain any filtering tag!");
         }
         
-        Filter filter = null;
-        switch(filterTag){
-        case TagsUtil.FILTERED_MINECART_TAG_FURNACE:
-            filter = new FurnaceFilter();
-            break;
-        case TagsUtil.FILTERED_MINECART_TAG_FUEL:
-            filter = new FuelFilter();
-            break;
-        default:
-            throw new IllegalStateException("Saving filtering tag: got unexpected tag!");
+        switch(filterTag) {
+            case TagsUtil.FILTERED_MINECART_TAG_FURNACE:
+                return new FurnaceFilter();
+            case TagsUtil.FILTERED_MINECART_TAG_FUEL:
+                return new FuelFilter();
         }
-        
-        return filter;
+        throw new IllegalStateException("Saving filtering tag: got unexpected tag!");
     }
 }
