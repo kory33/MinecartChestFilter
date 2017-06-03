@@ -123,7 +123,7 @@ public final class FilteredInventoryUtil {
     public static boolean isInventoryFiltered(Inventory checkTarget) {
         InventoryHolder inventoryHolder = checkTarget.getHolder();
 
-        return inventoryHolder instanceof Entity && NBTUtil.isEntityFilteredStorgeMinecart((Entity) inventoryHolder);
+        return inventoryHolder instanceof Entity && NBTUtil.isEntityFilteredStorageMinecart((Entity) inventoryHolder);
 
     }
 }

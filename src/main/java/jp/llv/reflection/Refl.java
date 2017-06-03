@@ -68,40 +68,51 @@ public class Refl {
         }
     }
 
-    private static boolean match(String name, Executable exe, Object... args) {
-        if (exe.getParameterCount() != args.length) {
+    private static boolean match(String name, Executable exe, Class... argTypes) {
+        if (exe.getParameterCount() != argTypes.length) {
             return false;//TODO VAR ARGS
         }
+
         if (name != null && !exe.getName().equals(name)) {
             return false;
         }
+
+        // check param types
         for (int i = 0; i < exe.getParameterCount(); i++) {
-            if (args[i] != null && !isInstance(exe.getParameterTypes()[i], args[i])) {
+            if (argTypes[i] != null && !exe.getParameterTypes()[i].isAssignableFrom(argTypes[i])) {
                 return false;
             }
         }
         return true;
     }
 
-    private static <E extends Executable> E getMatchingExecutable(String name, E[] candidate, Object... args) {
+    private static <E extends Executable> E getMatchingExecutable(String name, E[] candidate, Class... argTypes) {
         for (E e : candidate) {
-            if (match(name, e, (Object[]) args)) {
+            if (match(name, e, (Class[]) argTypes)) {
                 return e;
             }
         }
         return null;
     }
 
-    private static Method findMethod(Class<?> clazz, String name, Object... args) {
+    private static Method findMethod(Class<?> clazz, String name, Class... argTypes) {
         Class<?> c = clazz;
         do {
-            Method m = getMatchingExecutable(name, c.getDeclaredMethods(), (Object[]) args);
+            Method m = getMatchingExecutable(name, c.getDeclaredMethods(), (Class[]) argTypes);
             if (m != null) {
                 m.setAccessible(true);
                 return m;
             }
         } while ((c = c.getSuperclass()) != null);
         return null;
+    }
+
+    private static Class[] toTypes(Object... objects) {
+        Class[] types = new Class[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            types[i] = objects[i].getClass();
+        }
+        return types;
     }
 
     private static Field findField(Class<?> clazz, String name) {
@@ -126,14 +137,24 @@ public class Refl {
             this.value = value;
         }
 
-        public RObject<?> invoke(String method, Object... args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-            RObject.unwrap(args);
-            Method m = findMethod(this.value.getClass(), method, args);
+        /**
+         * Get an instance method
+         * @param method name of the method
+         * @param argTypes argument types
+         * @return RInstanceMethod instance bound to this object
+         * @throws NoSuchMethodException when the method does not exist.
+         */
+        public RInstanceMethod<T> getMethod(String method, Class... argTypes) throws NoSuchMethodException {
+            Method m = findMethod(this.value.getClass(), method, argTypes);
             if (m == null) {
                 throw new NoSuchMethodException();
             }
-            Object ret = m.invoke(this.value, args);
-            return ret != null ? new RObject<>(ret) : null;
+            return new RInstanceMethod<>(this.value, m);
+        }
+
+        public RObject<?> invoke(String method, Object... args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+            RObject.unwrap(args);
+            return this.getMethod(method, toTypes(args)).invoke(args);
         }
 
         private Field getField(String name) throws NoSuchFieldException {
@@ -255,7 +276,7 @@ public class Refl {
 
         public RObject<T> newInstance(Object... args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
             RObject.unwrap(args);
-            Constructor<?> t = getMatchingExecutable(null, this.value.getConstructors(), args);
+            Constructor<?> t = getMatchingExecutable(null, this.value.getConstructors(), toTypes(args));
             if (t == null) {
                 throw new NoSuchMethodException();
             }
@@ -263,14 +284,24 @@ public class Refl {
             return new RObject<>((T) t.newInstance(args));
         }
 
-        public RObject<?> invoke(String method, Object... args) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-            RObject.unwrap(args);
-            Method m = findMethod(this.value, method, args);
+        /**
+         * Get a static method of the class
+         * @param method name of the method
+         * @param argTypes argument types
+         * @return RClassMethod instance
+         * @throws NoSuchMethodException when the method does not exist.
+         */
+        public RClassMethod getMethod(String method, Class... argTypes) throws NoSuchMethodException {
+            Method m = findMethod(this.value, method, argTypes);
             if (m == null) {
                 throw new NoSuchMethodException();
             }
-            Object ret = m.invoke(null, args);
-            return ret != null ? new RObject<>(ret) : null;
+            return new RClassMethod(this.value, m);
+        }
+
+        public RObject<?> invoke(String method, Object... args) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            RObject.unwrap(args);
+            return this.getMethod(method, toTypes(args)).invoke(args);
         }
 
         private Field getField(String name) throws NoSuchFieldException {
@@ -298,7 +329,69 @@ public class Refl {
         public Class<T> unwrap() {
             return this.value;
         }
-
     }
 
+    private static abstract class RMethod {
+        protected abstract Object getObject();
+        protected abstract Method getMethod();
+
+        public final RObject<?> invoke(Object... args) throws InvocationTargetException {
+            try {
+                RObject.unwrap(args);
+                Object ret = getMethod().invoke(getObject(), args);
+                return ret != null ? new RObject<>(ret) : null;
+            } catch (IllegalAccessException ignored) {
+                return null;
+            }
+        }
+    }
+
+    /**
+     * Represents a class method to which the class is bound.
+     */
+    public static final class RClassMethod extends RMethod{
+        private final Class<?> clazz;
+        private final Method method;
+
+        private RClassMethod(Class<?> clazz, Method method) {
+            this.clazz = clazz;
+            this.method = method;
+
+            this.method.setAccessible(true);
+        }
+
+        @Override
+        protected Object getObject() {
+            return clazz;
+        }
+
+        @Override
+        protected Method getMethod() {
+            return method;
+        }
+    }
+
+    /**
+     * Represents an instance method to which an instance is bound.
+     * @param <T> type of the instance
+     */
+    public static final class RInstanceMethod<T> extends RMethod {
+        private final T instance;
+        private final Method method;
+
+        private RInstanceMethod(T instance, Method method) {
+            this.instance = instance;
+            this.method = method;
+        }
+
+        @Override
+        protected Object getObject() {
+            return instance;
+        }
+
+        @Override
+        protected Method getMethod() {
+            return method;
+        }
+    }
 }

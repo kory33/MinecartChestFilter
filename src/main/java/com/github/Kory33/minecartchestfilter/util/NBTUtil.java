@@ -3,8 +3,7 @@ package com.github.Kory33.minecartchestfilter.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftEntity;
+import jp.llv.reflection.Refl;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.minecart.StorageMinecart;
 
@@ -20,14 +19,18 @@ public final class NBTUtil {
      * @return whether the NBT tag is successfully added
      */
     public static boolean addFilterNBTToSMinecart(StorageMinecart sMinecart, String tagKey){
-        net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) sMinecart).getHandle();
+        Refl.RObject sMinecartHandler = NMSReflUtil.getNMSEntity(sMinecart);
         
-        if(isEntityFilteredStorgeMinecart(sMinecart)){
+        if(isEntityFilteredStorageMinecart(sMinecart)){
             return false;
         }
         
-        // grant Tags key to the Storage Minecart
-        return sMinecartHandler.a(tagKey);
+        try {
+            return sMinecartHandler.invoke("a", tagKey).unwrapAsBoolean();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     
     /**
@@ -44,16 +47,22 @@ public final class NBTUtil {
      * @param checkTarget target entity
      * @return whether the given entity is a filtered-storage minecart
      */
-    public static boolean isEntityFilteredStorgeMinecart(Entity checkTarget){
+    public static boolean isEntityFilteredStorageMinecart(Entity checkTarget){
         // check for entity type
         if(!(checkTarget instanceof StorageMinecart)){
             return false;
         }
         
-        net.minecraft.server.v1_10_R1.Entity sMinecartHandler = ((CraftEntity) checkTarget).getHandle();
-        
+        Refl.RObject sMinecartHandler = NMSReflUtil.getNMSEntity(checkTarget);
+
         // check for NBT presence
-        Set<String> entityFilteringTags = new HashSet<>(sMinecartHandler.P());
+        Set<String> entityFilteringTags;
+        try {
+            entityFilteringTags = (Set<String>)sMinecartHandler.invoke("P").unwrap();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+            return false;
+        }
         entityFilteringTags.retainAll(TagsUtil.FILTERED_MINECART_TAG_SET);
         return entityFilteringTags.size() != 0;
     }
@@ -64,13 +73,17 @@ public final class NBTUtil {
      * @return filtering tag in string
      * @throws IllegalStateException when illegal number of tags are contained in the entity tag set
      */
-    @Nullable
     public static String getFilteringTags(Entity checkTarget){
-        net.minecraft.server.v1_10_R1.Entity sEntityHandler = ((CraftEntity) checkTarget).getHandle();
-        
-        Set<String> tagsSet = sEntityHandler.P();
-        
-        Set<String> intersection = new HashSet<String>(tagsSet);
+        Refl.RObject sEntityHandler = NMSReflUtil.getNMSEntity(checkTarget);
+
+        Set<String> tagsSet = null;
+        try {
+            tagsSet = (Set<String>)sEntityHandler.invoke("P").unwrap();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+        Set<String> intersection = new HashSet<>(tagsSet);
         intersection.retainAll(TagsUtil.FILTERED_MINECART_TAG_SET);
         
         if(intersection.size() == 0){
