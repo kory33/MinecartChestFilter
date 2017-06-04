@@ -1,6 +1,6 @@
 name: MinecartChestFilter
 main: com.github.Kory33.minecartchestfilter.core.MinecartChestFilter
-version: 0.2.0
+version: 0.3.0-alpha
 
 commands:
     spawnFilteredStorageMinecart:
