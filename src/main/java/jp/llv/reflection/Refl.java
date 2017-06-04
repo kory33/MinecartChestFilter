@@ -45,26 +45,25 @@ public class Refl {
         return new RObject<>(value);
     }
 
-    private static boolean isInstance(Class<?> clazz, Object object) {
+    private static boolean isInstance(Class<?> clazz, Class<?> objectClazz) {
         if (clazz == byte.class) {
-            return Byte.class.isInstance(object);
+            return Byte.class == objectClazz;
         } else if (clazz == short.class) {
-            return Short.class.isInstance(object);
+            return Short.class == objectClazz;
         } else if (clazz == int.class) {
-            return Integer.class.isInstance(object);
+            return Integer.class == objectClazz;
         } else if (clazz == long.class) {
-            return Long.class.isInstance(object);
+            return Long.class == objectClazz;
         } else if (clazz == float.class) {
-            return Float.class.isInstance(object);
+            return Float.class == objectClazz;
         } else if (clazz == double.class) {
-            return Double.class.isInstance(object);
+            return Double.class == objectClazz;
         } else if (clazz == boolean.class) {
-            return Boolean.class.isInstance(object);
+            return Boolean.class == objectClazz;
         } else if (clazz == char.class) {
-            return Character.class.isInstance(object);
+            return Character.class == objectClazz;
         } else {
-            boolean result = clazz.isInstance(object);
-            return clazz.isInstance(object);
+            return clazz.isAssignableFrom(objectClazz);
         }
     }
 
@@ -79,7 +78,7 @@ public class Refl {
 
         // check param types
         for (int i = 0; i < exe.getParameterCount(); i++) {
-            if (argTypes[i] != null && !exe.getParameterTypes()[i].isAssignableFrom(argTypes[i])) {
+            if (argTypes[i] != null && !isInstance(exe.getParameterTypes()[i], argTypes[i])) {
                 return false;
             }
         }
